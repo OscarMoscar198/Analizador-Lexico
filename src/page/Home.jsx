@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Monaco from "@monaco-editor/react";
 import "./styles.css"; // Importa tu archivo CSS aquí
+import Lexer from "../lexer";
 
 function Home() {
   const [codigo, setCodigo] = useState("");
@@ -48,7 +49,7 @@ function Home() {
   return (
     <>
       <div className="title">
-        <h1>AUTOMATUM</h1>
+        <h1>AUTOMATUM 2.0</h1>
         <h2>OSCAR JAVIER CASTAÑEDA SOLIS - 213447</h2>
         <h2>AXEL GIOVANNI REYES RAMOS - 213370</h2>
       </div>
@@ -105,52 +106,5 @@ function Home() {
   );
 }
 
-class Lexer {
-  constructor(input) {
-    this.input = input;
-    this.position = 0;
-    this.tokenTable = [
-      { regex: /funcc/, type: 'FUNCION' },
-      { regex: /for/, type: 'FOR' },
-      { regex: /if/, type: 'IF' },
-      { regex: /int|string|float|bool/, type: 'TIPO_DATO' },
-      { regex: /return/, type: 'RETURN' },
-      { regex: /else/, type: 'ELSE' },
-      { regex: /contenido/, type: 'CONTENIDO' },
-      { regex: /(<=|>=|!=|==|<|>)/, type: 'OPERADORES' },
-      { regex: /\(/, type: 'PARENTESIS_ABRIR' },
-      { regex: /\)/, type: 'PARENTESIS_CERRAR' },
-      { regex: /\{/, type: 'CORCHETE_ABRIR' },
-      { regex: /\}/, type: 'CORCHETE_CERRAR' },
-      { regex: /"/, type: 'COMILLAS' },
-      { regex: /=/, type: 'ASIGNACION' },
-      { regex: /;/, type: 'PUNTO_COMA' },
-      { regex: /\++/, type: 'INCREMENTO' },
-      { regex: /\--/, type: 'DECREMENTO' },
-      { regex: /,/, type: 'COMA' }, 
-      { regex: /[0-9]+/, type: 'DIGITOS' },
-      { regex: /[a-zA-Z]+/, type: 'NOMBRES' }
-    ];
-  }
-
-  getNextToken() {
-    while (this.position < this.input.length) {
-      let char = this.input[this.position];
-      for (const tokenDef of this.tokenTable) {
-        const match = this.input.slice(this.position).match(tokenDef.regex);
-        if (match && match.index === 0) {
-          this.position += match[0].length;
-          return { type: tokenDef.type, value: match[0] };
-        }
-      }
-      if (/\s/.test(char)) {
-        this.position++;
-        continue;
-      }
-      throw new Error(`Caracter no identificado: ${char}`);
-    }
-    return { type: 'FINAL', value: null };
-  }
-}
 
 export default Home;

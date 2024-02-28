@@ -3,24 +3,25 @@ export default class Lexer {
     this.input = input;
     this.position = 0;
     this.tokenTable = [
-      { regex: /fc/, type: "FUNCION" },
+      { regex: /func/, type: "FUNCION" },
       { regex: /for/, type: "FOR" },
       { regex: /if/, type: "IF" },
-      { regex: /int|string|float|bool/, type: "TIPO" },
+      { regex: /int|string|float|bool/, type: "TIPO_DATO" },
       { regex: /return/, type: "RETURN" },
-      // { regex: /contenido/, type: "CONTENIDO" },
+      { regex: /else/, type: "ELSE" },
       { regex: /(<=|>=|!=|==|<|>)/, type: "OPERADOR" },
-      { regex: /\(/, type: "ABRIR_PARENTESIS" },
-      { regex: /\)/, type: "CERRAR_PARENTESIS" },
-      { regex: /\{/, type: "ABRIR_CORCHETE" },
-      { regex: /\}/, type: "CERRAR_CORCHETE" },
+      { regex: /=/, type: "ASIGNACION" },
+      { regex: /\(/, type: "PARENTESIS_ABRIR" },
+      { regex: /\)/, type: "PARENTESIS_CERRAR" },
+      { regex: /\{/, type: "LLAVE_ABRIR" },
+      { regex: /\}/, type: "LLAVE_CERRAR" },
       { regex: /:/, type: "DOS_PUNTOS" },
       { regex: /;/, type: "PUNTO_COMA" },
       { regex: /\++/, type: "INCREMENTO" },
       { regex: /,/, type: "COMA" },
+      { regex: /\./, type: "PUNTO" },
       { regex: /[0-9]+/, type: "DIGITO" },
       { regex: /[a-zA-Z]+/, type: "NOMBRE" },
-      //! regla extra
       { regex: /"/, type: "COMILLAS" },
     ];
   }
